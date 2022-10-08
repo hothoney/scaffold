@@ -89,11 +89,13 @@ const useAuthService = () => {
 
 const useAuth = () => useContext(AuthContext);
 
+const redirectIgnoreRouteList = ['/user/register'];
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (router.route === '/user/register') {
+    if (redirectIgnoreRouteList.includes(router.route)) {
       return;
     }
     if (
