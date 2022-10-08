@@ -4,7 +4,7 @@ import { AuthProvider } from '../hooks/useAuth';
 import DefaultLayout from '../layouts/DefaultLayout';
 import '@arco-design/web-react/dist/css/arco.css';
 import { useRouter } from 'next/router';
-import LoginLayout from '../layouts/LoginLayout';
+import LoginLayout from '../layouts/SideLayout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
