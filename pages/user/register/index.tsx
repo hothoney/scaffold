@@ -10,6 +10,7 @@ import {
 import { useRequest } from 'ahooks';
 import request from '../../../services/request';
 import { apisConfig } from '../../../config';
+import Head from 'next/head';
 
 interface RegisterData {
   passWord: string;
@@ -49,91 +50,96 @@ const index = () => {
   });
 
   return (
-    <Card
-      style={{ width: 500, margin: 'auto' }}
-      bordered={false}
-      title={<strong>用户注册</strong>}
-    >
-      <Spin loading={isRegisterLoading} style={{ width: '100%' }}>
-        <Form
-          form={registerFormInstance}
-          onSubmit={(value) => {
-            register(value);
-          }}
-          layout='vertical'
-          requiredSymbol={false}
-          validateMessages={{
-            required: (_: any, { label }: { label: string }) =>
-              `请填写${label}`,
-          }}
-        >
-          <Form.Item
-            field='userName'
-            label='用户名'
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+    <>
+      <Head>
+        <title>用户注册</title>
+      </Head>
+      <Card
+        style={{ width: 500, margin: 'auto' }}
+        bordered={false}
+        title={<strong>用户注册</strong>}
+      >
+        <Spin loading={isRegisterLoading} style={{ width: '100%' }}>
+          <Form
+            form={registerFormInstance}
+            onSubmit={(value) => {
+              register(value);
+            }}
+            layout='vertical'
+            requiredSymbol={false}
+            validateMessages={{
+              required: (_: any, { label }: { label: string }) =>
+                `请填写${label}`,
+            }}
           >
-            <Input
-            // prefix={<IconUser />}
-            //  placeholder='用户名'
-            />
-          </Form.Item>
-          <Form.Item
-            field='password'
-            label='密码'
-            rules={[
-              {
-                minLength: 6,
-                maxLength: 12,
-                required: true,
-              },
-            ]}
-          >
-            <Input.Password
-            // prefix={<IconLock />}
-            // placeholder='密码'
-            />
-          </Form.Item>
-          <Form.Item
-            field='confirmPassword'
-            dependencies={['password']}
-            rules={[
-              {
-                minLength: 6,
-                maxLength: 12,
-                required: true,
-              },
-              {
-                validator: async (confirmPasswordValue, cb) => {
-                  if (
-                    confirmPasswordValue !==
-                    registerFormInstance.getFieldValue('password')
-                  ) {
-                    return cb('两次输入的密码不匹配');
-                  } else {
-                    return cb(null);
-                  }
+            <Form.Item
+              field='userName'
+              label='用户名'
+              rules={[
+                {
+                  required: true,
                 },
-              },
-            ]}
-            label='确认密码'
-          >
-            <Input.Password
-            // prefix={<IconLock />}
-            // placeholder='确认密码'
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType='submit' type='primary'>
-              注册
-            </Button>
-          </Form.Item>
-        </Form>
-      </Spin>
-    </Card>
+              ]}
+            >
+              <Input
+              // prefix={<IconUser />}
+              //  placeholder='用户名'
+              />
+            </Form.Item>
+            <Form.Item
+              field='password'
+              label='密码'
+              rules={[
+                {
+                  minLength: 6,
+                  maxLength: 12,
+                  required: true,
+                },
+              ]}
+            >
+              <Input.Password
+              // prefix={<IconLock />}
+              // placeholder='密码'
+              />
+            </Form.Item>
+            <Form.Item
+              field='confirmPassword'
+              dependencies={['password']}
+              rules={[
+                {
+                  minLength: 6,
+                  maxLength: 12,
+                  required: true,
+                },
+                {
+                  validator: async (confirmPasswordValue, cb) => {
+                    if (
+                      confirmPasswordValue !==
+                      registerFormInstance.getFieldValue('password')
+                    ) {
+                      return cb('两次输入的密码不匹配');
+                    } else {
+                      return cb(null);
+                    }
+                  },
+                },
+              ]}
+              label='确认密码'
+            >
+              <Input.Password
+              // prefix={<IconLock />}
+              // placeholder='确认密码'
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button htmlType='submit' type='primary'>
+                注册
+              </Button>
+            </Form.Item>
+          </Form>
+        </Spin>
+      </Card>
+    </>
   );
 };
 
