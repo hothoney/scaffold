@@ -27,6 +27,40 @@ const postRegisterValue = (data: RegisterData) => {
   });
 };
 
+import { motion, type Variants, AnimatePresence } from 'framer-motion';
+
+const MotionFormItem = motion(Form.Item);
+
+const containerVariants: Variants = {
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      staggerChildren: 0.2,
+      duration: 0.2,
+    },
+  },
+  hide: {
+    y: -50,
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.2,
+      duration: 0.2,
+    },
+  },
+};
+const itemVariants: Variants = {
+  show: {
+    x: 0,
+    opacity: 1,
+  },
+  hide: {
+    x: -50,
+    opacity: 0,
+  },
+};
+
 const index = () => {
   const [registerFormInstance] = Form.useForm();
   const {
@@ -54,91 +88,98 @@ const index = () => {
       <Head>
         <title>用户注册</title>
       </Head>
-      <Card
+      <motion.div
+        variants={containerVariants}
         style={{ width: 500, margin: 'auto' }}
-        bordered={false}
-        title={<strong>用户注册</strong>}
+        initial='hide'
+        animate='show'
+        exit='hide'
       >
-        <Spin loading={isRegisterLoading} style={{ width: '100%' }}>
-          <Form
-            form={registerFormInstance}
-            onSubmit={(value) => {
-              register(value);
-            }}
-            layout='vertical'
-            requiredSymbol={false}
-            validateMessages={{
-              required: (_: any, { label }: { label: string }) =>
-                `请填写${label}`,
-            }}
-          >
-            <Form.Item
-              field='userName'
-              label='用户名'
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+        <Card bordered={false} title={<strong>用户注册</strong>}>
+          <Spin loading={isRegisterLoading} style={{ width: '100%' }}>
+            <Form
+              form={registerFormInstance}
+              onSubmit={(value) => {
+                register(value);
+              }}
+              layout='vertical'
+              requiredSymbol={false}
+              validateMessages={{
+                required: (_: any, { label }: { label: string }) =>
+                  `请填写${label}`,
+              }}
             >
-              <Input
-              // prefix={<IconUser />}
-              //  placeholder='用户名'
-              />
-            </Form.Item>
-            <Form.Item
-              field='password'
-              label='密码'
-              rules={[
-                {
-                  minLength: 6,
-                  maxLength: 12,
-                  required: true,
-                },
-              ]}
-            >
-              <Input.Password
-              // prefix={<IconLock />}
-              // placeholder='密码'
-              />
-            </Form.Item>
-            <Form.Item
-              field='confirmPassword'
-              dependencies={['password']}
-              rules={[
-                {
-                  minLength: 6,
-                  maxLength: 12,
-                  required: true,
-                },
-                {
-                  validator: async (confirmPasswordValue, cb) => {
-                    if (
-                      confirmPasswordValue !==
-                      registerFormInstance.getFieldValue('password')
-                    ) {
-                      return cb('两次输入的密码不匹配');
-                    } else {
-                      return cb(null);
-                    }
+              <MotionFormItem
+                variants={itemVariants}
+                field='userName'
+                label='用户名'
+                rules={[
+                  {
+                    required: true,
                   },
-                },
-              ]}
-              label='确认密码'
-            >
-              <Input.Password
-              // prefix={<IconLock />}
-              // placeholder='确认密码'
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button htmlType='submit' type='primary'>
-                注册
-              </Button>
-            </Form.Item>
-          </Form>
-        </Spin>
-      </Card>
+                ]}
+              >
+                <Input
+                // prefix={<IconUser />}
+                //  placeholder='用户名'
+                />
+              </MotionFormItem>
+              <MotionFormItem
+                variants={itemVariants}
+                field='password'
+                label='密码'
+                rules={[
+                  {
+                    minLength: 6,
+                    maxLength: 12,
+                    required: true,
+                  },
+                ]}
+              >
+                <Input.Password
+                // prefix={<IconLock />}
+                // placeholder='密码'
+                />
+              </MotionFormItem>
+              <MotionFormItem
+                variants={itemVariants}
+                field='confirmPassword'
+                dependencies={['password']}
+                rules={[
+                  {
+                    minLength: 6,
+                    maxLength: 12,
+                    required: true,
+                  },
+                  {
+                    validator: async (confirmPasswordValue, cb) => {
+                      if (
+                        confirmPasswordValue !==
+                        registerFormInstance.getFieldValue('password')
+                      ) {
+                        return cb('两次输入的密码不匹配');
+                      } else {
+                        return cb(null);
+                      }
+                    },
+                  },
+                ]}
+                label='确认密码'
+              >
+                <Input.Password
+                // prefix={<IconLock />}
+                // placeholder='确认密码'
+                />
+              </MotionFormItem>
+              <MotionFormItem variants={itemVariants}>
+                <Button htmlType='submit' type='primary'>
+                  注册
+                </Button>
+              </MotionFormItem>
+            </Form>
+          </Spin>
+        </Card>
+      </motion.div>
     </>
   );
 };

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 const LoginWrapper = styled.div`
   width: 100vw;
@@ -7,7 +8,7 @@ const LoginWrapper = styled.div`
   overflow: hidden;
 `;
 
-const LeftContent = styled.div`
+const LeftContent = styled(motion.div)`
   width: 500px;
   height: 100%;
 `;
