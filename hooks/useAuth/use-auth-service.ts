@@ -51,7 +51,7 @@ const useAuthService = () => {
       parseToken(localStorage.getItem(AuthEnum.TokenName))
     ) {
       const { exp } = parseToken(localStorage.getItem(AuthEnum.TokenName));
-      if (exp && exp <= Date.now()) {
+      if (exp && exp * 10e3 <= Date.now()) {
         router.push('/user/login');
         Message.info('登录过期，请重新登录');
       } else {
