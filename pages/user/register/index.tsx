@@ -110,6 +110,7 @@ const index = () => {
               }}
             >
               <MotionFormItem
+                hasFeedback
                 key='username'
                 variants={itemVariants}
                 field='userName'
@@ -117,15 +118,37 @@ const index = () => {
                 rules={[
                   {
                     required: true,
+                    validator: async (value, callback) => {
+                      const regExp =
+                        /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+
+                      if (regExp.test(value as string)) {
+                        return callback(null);
+                      } else {
+                        return callback('请输入正确的邮箱');
+                      }
+                    },
                   },
                 ]}
               >
-                <Input
-                // prefix={<IconUser />}
-                //  placeholder='用户名'
-                />
+                <Input />
               </MotionFormItem>
               <MotionFormItem
+                hasFeedback
+                key='realName'
+                variants={itemVariants}
+                field='realName'
+                label='真实姓名'
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <Input />
+              </MotionFormItem>
+              <MotionFormItem
+                hasFeedback
                 key='password'
                 variants={itemVariants}
                 field='password'
@@ -138,12 +161,10 @@ const index = () => {
                   },
                 ]}
               >
-                <Input.Password
-                // prefix={<IconLock />}
-                // placeholder='密码'
-                />
+                <Input.Password />
               </MotionFormItem>
               <MotionFormItem
+                hasFeedback
                 variants={itemVariants}
                 field='confirmPassword'
                 dependencies={['password']}
@@ -168,10 +189,7 @@ const index = () => {
                 ]}
                 label='确认密码'
               >
-                <Input.Password
-                // prefix={<IconLock />}
-                // placeholder='确认密码'
-                />
+                <Input.Password />
               </MotionFormItem>
               <MotionFormItem variants={itemVariants} key='submitBtn'>
                 <Button htmlType='submit' type='primary'>
