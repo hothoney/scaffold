@@ -110,6 +110,7 @@ const index = () => {
               }}
             >
               <MotionFormItem
+                key='username'
                 variants={itemVariants}
                 field='userName'
                 label='用户名'
@@ -125,6 +126,7 @@ const index = () => {
                 />
               </MotionFormItem>
               <MotionFormItem
+                key='password'
                 variants={itemVariants}
                 field='password'
                 label='密码'
@@ -171,7 +173,7 @@ const index = () => {
                 // placeholder='确认密码'
                 />
               </MotionFormItem>
-              <MotionFormItem variants={itemVariants}>
+              <MotionFormItem variants={itemVariants} key='submitBtn'>
                 <Button htmlType='submit' type='primary'>
                   注册
                 </Button>
