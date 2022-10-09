@@ -3,5 +3,6 @@ export default {
   routes: {
     register: '/api/User/Register', // 注册接口
     login: '/api/User/Login', // 登录接口
+    drug: '/api/Drug', // 药品接口
   },
 };
