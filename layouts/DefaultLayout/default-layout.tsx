@@ -38,7 +38,7 @@ const DefaultLayout: React.FC<{ children: React.ReactNode }> = ({
           </Row>
         </Layout.Header>
         <Layout style={{ padding: '24px', backgroundColor: '#f2f3f5' }}>
-          <Layout.Content style={{ backgroundColor: '#ffffff' }}>
+          <Layout.Content style={{ backgroundColor: '#ffffff', padding: 20 }}>
             {children}
           </Layout.Content>
         </Layout>
