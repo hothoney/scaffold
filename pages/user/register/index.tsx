@@ -28,6 +28,7 @@ const postRegisterValue = (data: RegisterData) => {
 };
 
 import { motion, type Variants, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 const MotionFormItem = motion(Form.Item);
 
@@ -62,6 +63,7 @@ const itemVariants: Variants = {
 };
 
 const index = () => {
+  const router = useRouter();
   const [registerFormInstance] = Form.useForm();
   const {
     data: registerResult,
@@ -72,6 +74,7 @@ const index = () => {
     onSuccess(data, params) {
       if (data.data.success) {
         Message.success('注册成功');
+        router.push('/user/login');
       } else {
         Message.error('注册失败');
         console.warn('注册失败错误:', { data, params });

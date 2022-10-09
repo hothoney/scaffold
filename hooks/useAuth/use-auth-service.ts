@@ -28,9 +28,11 @@ const useAuthService = () => {
     onSuccess(data, params) {
       if (data.data.success) {
         Message.success('登录成功');
-        setUser(parseToken(data.data.data || null));
+        setUser(parseToken(data.data.data));
+        console.log({ user });
         setIsAuthorized(true);
-        localStorage.setItem(AuthEnum.TokenName, data.data.data || '');
+        localStorage.setItem(AuthEnum.TokenName, data.data.data);
+        router.push('/');
       } else {
         Message.error('登录失败');
         console.warn({ data, params });
@@ -56,6 +58,7 @@ const useAuthService = () => {
         Message.info('登录过期，请重新登录');
       } else {
         setIsAuthorized(true);
+        setUser(parseToken(localStorage.getItem(AuthEnum.TokenName)));
       }
     } else {
       router.push('/user/login');
