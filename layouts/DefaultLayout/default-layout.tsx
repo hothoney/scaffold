@@ -3,12 +3,14 @@ import { Avatar, Layout, Space, Grid } from '@arco-design/web-react';
 import { IconArchive } from '@arco-design/web-react/icon';
 import Nav from '../../components/Nav';
 import { navConfig } from '../../config';
+import useAuth from '../../hooks/useAuth';
 
 const { Row, Col } = Grid;
 
 const DefaultLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { user } = useAuth();
   return (
     <Layout style={{ height: '100vh' }}>
       <Layout.Sider breakpoint='lg' collapsible>
@@ -30,8 +32,8 @@ const DefaultLayout: React.FC<{ children: React.ReactNode }> = ({
                 schema={navConfig.defaultLayoutTopNavSchema}
                 mode='horizontal'
               />
-              <Avatar />
-              <span>用户名</span>
+              <Avatar autoFixFontSize>{user?.Name[0] || '用户名'}</Avatar>
+              <span>{user?.Name || '用户名'}</span>
             </Space>
           </Row>
         </Layout.Header>
