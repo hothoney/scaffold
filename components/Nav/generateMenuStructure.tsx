@@ -35,7 +35,9 @@ const generatorNavStructure = (navSchema: NavSchema[]): JSX.Element[] => {
       return (
         <Menu.Item {...navItem}>
           {navItem.href ? (
-            <Link href={navItem.href}>{itemContent}</Link>
+            <Link href={navItem.href}>
+              <a>{itemContent}</a>
+            </Link>
           ) : (
             itemContent
           )}
