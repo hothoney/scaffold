@@ -6,12 +6,17 @@ import {
   Radio,
   type FormInstance,
   Button,
+  Divider,
+  Popconfirm,
+  Message,
 } from '@arco-design/web-react';
 import request from '../../../services/request';
 import { apisConfig } from '../../../config';
 import Head from 'next/head';
 import CreateDataButton from '../../../components/CreateDataButton';
 import { IconDelete, IconEdit } from '@arco-design/web-react/icon';
+import TableFilter from '../../../components/TableFilter/table-filter';
+import ProTable from '../../../components/ProTable';
 
 interface DrugData {
   id: number;
@@ -60,46 +65,22 @@ const columns: TableColumnProps<Partial<DrugData>>[] = [
             <IconEdit />
             编辑
           </Button>
-          <Button type='text' size='small' status='danger'>
-            <IconDelete />
-            删除
-          </Button>
+          <Popconfirm
+            title='你确定要删除吗'
+            onOk={async () => {
+              Message.success('删除成功');
+            }}
+          >
+            <Button type='text' size='small' status='danger'>
+              <IconDelete />
+              删除
+            </Button>
+          </Popconfirm>
         </>
       );
     },
   },
 ];
-
-const FormComponent = (
-  form: FormInstance,
-  doRequest: (...args: any[]) => void
-) => (
-  <Form
-    layout='vertical'
-    form={form}
-    onSubmit={(value) => {
-      doRequest(value);
-    }}
-  >
-    <Form.Item field='name' label='名称' rules={[{ required: true }]}>
-      <Input />
-    </Form.Item>
-    <Form.Item field='usage' label='使用方式' rules={[{ required: true }]}>
-      <Radio.Group>
-        {Object.keys(UsageEnum)
-          .filter((usage) => isNaN(Number(usage)))
-          .map((usage) => (
-            <Radio value={(UsageEnum as any)[usage]} key={usage}>
-              {usage}
-            </Radio>
-          ))}
-      </Radio.Group>
-    </Form.Item>
-    <Form.Item field='description' label='描述' rules={[{ required: true }]}>
-      <Input.TextArea />
-    </Form.Item>
-  </Form>
-);
 
 const postDrugRequest = (data: DrugData) =>
   request<null>({
@@ -117,24 +98,9 @@ const index = () => {
       <div style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 20 }}>
         药物数据管理
       </div>
-      <CreateDataButton
-        postRequest={postDrugRequest}
-        renderForm={FormComponent}
-      />
-      <Table
+      <ProTable
         columns={columns}
-        data={[
-          {
-            name: '123',
-            usage: 0,
-            description: '123',
-          },
-          {
-            name: '123',
-            usage: 0,
-            description: '123',
-          },
-        ]}
+        request={async () => ({ total: 2, data: [] })}
       />
     </>
   );
