@@ -5,7 +5,10 @@ import { AuthEnum } from '../../hooks/useAuth/types';
 interface BaseResponseType<T> {
   success: boolean;
   msg: string;
-  data: T;
+  data?: T;
+  pageSize?: number;
+  totalCount?: number;
+  pageIndex?: number;
 }
 
 const instance = axios.create({
