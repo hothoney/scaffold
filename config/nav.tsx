@@ -1,32 +1,15 @@
-import { IconStorage } from '@arco-design/web-react/icon';
+import { IconHistory, IconStorage } from '@arco-design/web-react/icon';
 import { type NavConfig } from './types';
 
 export default {
   defaultLayoutTopNavSchema: [
     {
       key: '0',
-      title: '顶部菜单 0',
-      items: [
-        {
-          key: '0-1',
-          title: '顶部菜单 0-1',
-          items: [
-            {
-              key: '0-1-0',
-              title: '顶部菜单 0-1-0',
-            },
-          ],
-        },
-        {
-          key: '0-2',
-          title: '顶部菜单 0-2',
-          href: '/hello',
-        },
-      ],
+      title: '首页',
     },
     {
       key: '1',
-      title: '顶部菜单 1',
+      title: '寄养中心',
       items: [
         {
           key: '1-1',
@@ -43,12 +26,22 @@ export default {
       ],
     },
     {
-      key: '2',
-      title: '顶部菜单 2',
-    },
-    {
-      key: '3',
-      title: '顶部菜单 3',
+      key: '1',
+      title: '寄养中心',
+      items: [
+        {
+          key: '1-1',
+          title: '顶部菜单 1-1',
+        },
+        {
+          key: '1-2',
+          title: '顶部菜单 1-2',
+        },
+        {
+          key: '1-3',
+          title: '顶部菜单 1-3',
+        },
+      ],
     },
   ],
   defaultLayoutSideNavSchema: [
@@ -67,6 +60,23 @@ export default {
           title: '宠物物种维护',
           href: '/data/petSpecie',
         },
+      ],
+    },
+    {
+      key: '1',
+      title: '记录',
+      icon: <IconHistory />,
+      items: [
+        {
+          key: '1-1',
+          title: '药物记录',
+          href: '/record/drug',
+        },
+        // {
+        //   key: '0-2',
+        //   title: '宠物物种维护',
+        //   href: '/record/petSpecie',
+        // },
       ],
     },
   ],
