@@ -68,15 +68,15 @@ export default {
       icon: <IconHistory />,
       items: [
         {
-          key: '1-1',
+          key: '/record/drug',
           title: '药物记录',
           href: '/record/drug',
         },
-        // {
-        //   key: '0-2',
-        //   title: '宠物物种维护',
-        //   href: '/record/petSpecie',
-        // },
+        {
+          key: '/record/foster',
+          title: '寄养',
+          href: '/record/foster',
+        },
       ],
     },
   ],
