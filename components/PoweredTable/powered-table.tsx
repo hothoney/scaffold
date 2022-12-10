@@ -122,15 +122,12 @@ const PoweredTable = <T,>({
                     data,
                   });
                   if (response.success) {
+                    message.success('新建数据成功！');
                     actionRef.current?.reload();
+                  } else {
+                    message.error('新建数据失败！');
                   }
                   return response.success;
-                }}
-                onSuccess={() => {
-                  message.success('新建数据成功！');
-                }}
-                onError={() => {
-                  message.error('新建数据失败！');
                 }}
               />,
             ]
