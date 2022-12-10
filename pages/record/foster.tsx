@@ -58,7 +58,7 @@ const columns: ProColumns<Partial<FosterRecordData>, 'text'>[] = [
       });
       return (
         response.data?.map((user) => ({
-          label: user.userName,
+          label: user.realName,
           value: user.id,
         })) || []
       );
@@ -73,8 +73,38 @@ const columns: ProColumns<Partial<FosterRecordData>, 'text'>[] = [
     dataIndex: 'certificate',
   },
   {
-    title: '宠物 id',
+    title: '宠物名',
     dataIndex: 'petId',
+    valueType: 'select',
+    fieldProps: {
+      showSearch: true,
+      filterOption: (input, option) =>
+        ((option?.label as string) ?? '')
+          .toLowerCase()
+          .includes(input.toLowerCase()),
+    },
+    request: async () => {
+      const response = await request<
+        {
+          name: string;
+          id: number;
+        }[]
+      >({
+        url: '/api/pet/PageList',
+        method: 'POST',
+        data: {
+          pageIndex: 1,
+          pageSize: 9999,
+          conditions: [],
+        },
+      });
+      return (
+        response.data?.map((user) => ({
+          label: user.name,
+          value: user.id,
+        })) || []
+      );
+    },
   },
   {
     title: '寄养时间',
@@ -117,7 +147,7 @@ const columns: ProColumns<Partial<FosterRecordData>, 'text'>[] = [
       });
       return (
         response.data?.map((user) => ({
-          label: user.userName,
+          label: user.realName,
           value: user.id,
         })) || []
       );
@@ -159,7 +189,7 @@ const columns: ProColumns<Partial<FosterRecordData>, 'text'>[] = [
       });
       return (
         response.data?.map((user) => ({
-          label: user.userName,
+          label: user.realName,
           value: user.id,
         })) || []
       );
@@ -167,7 +197,7 @@ const columns: ProColumns<Partial<FosterRecordData>, 'text'>[] = [
   },
 ];
 
-const drug = () => {
+const foster = () => {
   return (
     <>
       <PoweredTable<Partial<FosterRecordData>>
@@ -181,4 +211,4 @@ const drug = () => {
   );
 };
 
-export default drug;
+export default foster;

@@ -76,6 +76,10 @@ export default {
           key: '/record/foster',
           title: '寄养',
           href: '/record/foster',
+        },{
+          key: '/record/pet',
+          title: '宠物',
+          href: '/record/pet',
         },
       ],
     },
