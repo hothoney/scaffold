@@ -2,24 +2,13 @@ import React from 'react';
 import { apisConfig } from '../../../config';
 import PoweredTable from '../../../components/PoweredTable';
 import { ProColumns } from '@ant-design/pro-components';
+import Head from 'next/head';
 
 const columns: ProColumns<unknown, 'text'>[] = [
   {
     key: 'name',
     title: '名称',
     dataIndex: 'name',
-  },
-  {
-    key: 'description',
-    title: '使用方式',
-    dataIndex: 'description',
-    valueType: 'select',
-    valueEnum: {
-      0: '口服',
-      1: '肌注',
-      2: '外敷',
-      3: '雾化',
-    },
   },
   {
     key: 'description',
@@ -31,6 +20,12 @@ const columns: ProColumns<unknown, 'text'>[] = [
 const index = () => {
   return (
     <>
+      <Head>
+        <title>宠物物种维护</title>
+      </Head>
+      <div style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 20 }}>
+        宠物物种维护
+      </div>
       <PoweredTable
         columns={columns}
         api={apisConfig.routes.petSpecie}

@@ -1,16 +1,6 @@
-import { TableColumnProps } from '@arco-design/web-react';
-import React from 'react';
-import {
-  ProColumns,
-  ProColumnType,
-  ProFormSelect,
-  ProTable,
-} from '@ant-design/pro-components';
+import { ProColumns } from '@ant-design/pro-components';
 import { apisConfig } from '../../config';
 import request from '../../services/request';
-import formatParams2Conditions, {
-  ConditionTypeEnum,
-} from '../../utils/formatParams2Conditions';
 import PoweredTable from '../../components/PoweredTable';
 
 interface FosterRecordData {
@@ -185,7 +175,7 @@ const drug = () => {
         columns={columns}
         api={apisConfig.routes.Foster}
         pageListApi={apisConfig.routes.FosterList}
-        readonly
+        // readonly
       />
     </>
   );

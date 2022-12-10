@@ -4,6 +4,7 @@ export default {
     register: '/api/User/Register', // 注册接口
     login: '/api/User/Login', // 登录接口
     drug: '/api/Drug', // 药品接口
+    drugList: '/api/Drug/PageList', // 药品接口
     drugRecord: '/api/DrugRecord', // 药品记录接口
     drugRecordList: '/api/DrugRecord/PageList', // 药品记录接口
     petSpecie: '/api/PetSpecie',

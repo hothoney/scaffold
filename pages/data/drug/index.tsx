@@ -1,22 +1,9 @@
-import {
-  Table,
-  type TableColumnProps,
-  Form,
-  Input,
-  Radio,
-  type FormInstance,
-  Button,
-  Divider,
-  Popconfirm,
-  Message,
-} from '@arco-design/web-react';
-import request from '../../../services/request';
+import { Button, Popconfirm, Message } from '@arco-design/web-react';
 import { apisConfig } from '../../../config';
 import Head from 'next/head';
-import CreateDataButton from '../../../components/CreateDataButton';
 import { IconDelete, IconEdit } from '@arco-design/web-react/icon';
-import TableFilter from '../../../components/TableFilter/table-filter';
-import ProTable from '../../../components/ProTable';
+import PoweredTable from '../../../components/PoweredTable';
+import { ProColumns } from '@ant-design/pro-components';
 
 interface DrugData {
   id: number;
@@ -41,53 +28,29 @@ enum UsageEnum {
   Inhalation = 3,
 }
 
-const columns: TableColumnProps<Partial<DrugData>>[] = [
+const columns: ProColumns[] = [
   {
+    key: 'name',
     title: '名称',
     dataIndex: 'name',
   },
   {
+    key: 'usage',
     title: '使用方式',
     dataIndex: 'usage',
+    valueType: 'select',
+    valueEnum: {
+      0: '口服',
+      1: '肌注',
+      2: '外敷',
+      3: '雾化',
+    },
   },
   {
     title: '描述',
     dataIndex: 'description',
   },
-  {
-    title: '操作',
-    fixed: 'right',
-    width: 200,
-    render(col, item, index) {
-      return (
-        <>
-          <Button type='text' size='small'>
-            <IconEdit />
-            编辑
-          </Button>
-          <Popconfirm
-            title='你确定要删除吗'
-            onOk={async () => {
-              Message.success('删除成功');
-            }}
-          >
-            <Button type='text' size='small' status='danger'>
-              <IconDelete />
-              删除
-            </Button>
-          </Popconfirm>
-        </>
-      );
-    },
-  },
 ];
-
-const postDrugRequest = (data: DrugData) =>
-  request<null>({
-    method: 'POST',
-    url: apisConfig.routes.drug,
-    data,
-  });
 
 const index = () => {
   return (
@@ -98,9 +61,10 @@ const index = () => {
       <div style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 20 }}>
         药物数据管理
       </div>
-      <ProTable
+      <PoweredTable
         columns={columns}
-        request={async () => ({ total: 2, data: [] })}
+        api={apisConfig.routes.drug}
+        pageListApi={apisConfig.routes.drugList}
       />
     </>
   );
