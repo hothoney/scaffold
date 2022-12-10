@@ -8,5 +8,7 @@ export default {
     drugRecordList: '/api/DrugRecord/PageList', // 药品记录接口
     petSpecie: '/api/PetSpecie',
     petSpecieList: '/api/PetSpecie/PageList',
+    Foster: '/api/Foster',
+    FosterList: '/api/Foster/PageList',
   },
 };

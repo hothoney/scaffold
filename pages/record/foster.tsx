@@ -1,8 +1,17 @@
 import { TableColumnProps } from '@arco-design/web-react';
 import React from 'react';
-import ProTable from '../../components/ProTable';
+import {
+  ProColumns,
+  ProColumnType,
+  ProFormSelect,
+  ProTable,
+} from '@ant-design/pro-components';
 import { apisConfig } from '../../config';
 import request from '../../services/request';
+import formatParams2Conditions, {
+  ConditionTypeEnum,
+} from '../../utils/formatParams2Conditions';
+import PoweredTable from '../../components/PoweredTable';
 
 interface FosterRecordData {
   id: number;
@@ -22,10 +31,48 @@ interface FosterRecordData {
   transferImplementer: number;
 }
 
-const columns: TableColumnProps<FosterRecordData>[] = [
+const columns: ProColumns<Partial<FosterRecordData>, 'text'>[] = [
   {
     title: '领养人',
-    dataIndex: 'name',
+    dataIndex: 'userId',
+    valueType: 'select',
+    fieldProps: {
+      showSearch: true,
+      filterOption: (input, option) =>
+        ((option?.label as string) ?? '')
+          .toLowerCase()
+          .includes(input.toLowerCase()),
+    },
+    request: async () => {
+      const response = await request<
+        {
+          userName: string;
+          realName: string;
+          passWord: string;
+          userType: number;
+          id: number;
+          modified: Date;
+          modifiedBy: number;
+          deleted: boolean;
+          created: Date;
+          createdBy: number;
+        }[]
+      >({
+        url: '/api/User/PageList',
+        method: 'POST',
+        data: {
+          pageIndex: 1,
+          pageSize: 9999,
+          conditions: [],
+        },
+      });
+      return (
+        response.data?.map((user) => ({
+          label: user.userName,
+          value: user.id,
+        })) || []
+      );
+    },
   },
   {
     title: '手机号码',
@@ -42,51 +89,103 @@ const columns: TableColumnProps<FosterRecordData>[] = [
   {
     title: '寄养时间',
     dataIndex: 'fosterDateTime',
+    valueType: 'date',
   },
   {
     title: '接收到医院实施者',
     dataIndex: 'receiveImplementer',
+    valueType: 'select',
+    fieldProps: {
+      showSearch: true,
+      filterOption: (input, option) =>
+        ((option?.label as string) ?? '')
+          .toLowerCase()
+          .includes(input.toLowerCase()),
+    },
+    request: async () => {
+      const response = await request<
+        {
+          userName: string;
+          realName: string;
+          passWord: string;
+          userType: number;
+          id: number;
+          modified: Date;
+          modifiedBy: number;
+          deleted: boolean;
+          created: Date;
+          createdBy: number;
+        }[]
+      >({
+        url: '/api/User/PageList',
+        method: 'POST',
+        data: {
+          pageIndex: 1,
+          pageSize: 9999,
+          conditions: [],
+        },
+      });
+      return (
+        response.data?.map((user) => ({
+          label: user.userName,
+          value: user.id,
+        })) || []
+      );
+    },
   },
   {
     title: '从医院送出实施者',
     dataIndex: 'transferImplementer',
+    valueType: 'select',
+    fieldProps: {
+      showSearch: true,
+      filterOption: (input, option) =>
+        ((option?.label as string) ?? '')
+          .toLowerCase()
+          .includes(input.toLowerCase()),
+    },
+    request: async () => {
+      const response = await request<
+        {
+          userName: string;
+          realName: string;
+          passWord: string;
+          userType: number;
+          id: number;
+          modified: Date;
+          modifiedBy: number;
+          deleted: boolean;
+          created: Date;
+          createdBy: number;
+        }[]
+      >({
+        url: '/api/User/PageList',
+        method: 'POST',
+        data: {
+          pageIndex: 1,
+          pageSize: 9999,
+          conditions: [],
+        },
+      });
+      return (
+        response.data?.map((user) => ({
+          label: user.userName,
+          value: user.id,
+        })) || []
+      );
+    },
   },
 ];
 
 const drug = () => {
   return (
     <>
-      <ProTable<Partial<FosterRecordData>>
+      <PoweredTable<Partial<FosterRecordData>>
+        debounceTime={300}
         columns={columns}
-        request={async ({ currentPage, pageSize, ...params }) => {
-          try {
-            return {
-              total: 4,
-              data: [],
-            };
-          } catch (error) {
-            return {
-              total: 0,
-              data: [],
-            };
-          }
-        }}
-        addRequest={async (data) => {
-          try {
-            const result = await request({
-              method: 'POST',
-              url: apisConfig.routes.drugRecord,
-              data,
-            });
-            if (result.success) {
-              return true;
-            } else {
-              return false;
-            }
-          } catch (error) {
-            return false;
-          }
-        }}
+        api={apisConfig.routes.Foster}
+        pageListApi={apisConfig.routes.FosterList}
+        readonly
       />
     </>
   );
