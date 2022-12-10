@@ -2,177 +2,31 @@ import { ProColumns } from '@ant-design/pro-components';
 import { apisConfig } from '../../config';
 import request from '../../services/request';
 import PoweredTable from '../../components/PoweredTable';
-interface DrugRecordData {
+interface UserRecordData {
   id: number;
   modified: Date;
   modifiedBy: number;
   deleted: boolean;
   created: Date;
   createdBy: number;
-  sponsor: number;
-  implementer: number;
-  beneficiary: number;
-  phone: string;
-  beneficiaryCertificate: string;
-  drugId: number;
-  count: number;
-  operatingType: number;
-  status: number;
+  userName: string;
+  realName: string;
+  userType: number;
 }
 
 
-const columns: ProColumns<Partial<DrugRecordData>, 'text'>[] = [
+const columns: ProColumns<Partial<UserRecordData>, 'text'>[] = [
   {
-    title: '发起者',
-    dataIndex: 'sponsor',
-    valueType: 'select',
-    fieldProps: {
-      showSearch: true,
-      filterOption: (input, option) =>
-        ((option?.label as string) ?? '')
-          .toLowerCase()
-          .includes(input.toLowerCase()),
-    },
-    request: async () => {
-      const response = await request<
-        {
-          userName: string;
-          realName: string;
-          passWord: string;
-          userType: number;
-          id: number;
-          modified: Date;
-          modifiedBy: number;
-          deleted: boolean;
-          created: Date;
-          createdBy: number;
-        }[]
-      >({
-        url: '/api/User/PageList',
-        method: 'POST',
-        data: {
-          pageIndex: 1,
-          pageSize: 9999,
-          conditions: [],
-        },
-      });
-      return (
-        response.data?.map((user) => ({
-          label: user.realName,
-          value: user.id,
-        })) || []
-      );
-    },
+    title: '用户名',
+    dataIndex: 'userName',    
   },
   {
-    title: '实施者',
-    dataIndex: 'implementer',
-    valueType: 'select',
-    fieldProps: {
-      showSearch: true,
-      filterOption: (input, option) =>
-        ((option?.label as string) ?? '')
-          .toLowerCase()
-          .includes(input.toLowerCase()),
-    },
-    request: async () => {
-      const response = await request<
-        {
-          userName: string;
-          realName: string;
-          passWord: string;
-          userType: number;
-          id: number;
-          modified: Date;
-          modifiedBy: number;
-          deleted: boolean;
-          created: Date;
-          createdBy: number;
-        }[]
-      >({
-        url: '/api/User/PageList',
-        method: 'POST',
-        data: {
-          pageIndex: 1,
-          pageSize: 9999,
-          conditions: [],
-        },
-      });
-      return (
-        response.data?.map((user) => ({
-          label: user.realName,
-          value: user.id,
-        })) || []
-      );
-    },
-
+    title: '真实姓名',
+    dataIndex: 'realName',
   },
   {
-    title: '药品厂商/宠物主人',
-    dataIndex: 'beneficiary', valueType: 'select',
-    fieldProps: {
-      showSearch: true,
-      filterOption: (input, option) =>
-        ((option?.label as string) ?? '')
-          .toLowerCase()
-          .includes(input.toLowerCase()),
-    },
-    request: async () => {
-      const response = await request<
-        {
-          userName: string;
-          realName: string;
-          passWord: string;
-          userType: number;
-          id: number;
-          modified: Date;
-          modifiedBy: number;
-          deleted: boolean;
-          created: Date;
-          createdBy: number;
-        }[]
-      >({
-        url: '/api/User/PageList',
-        method: 'POST',
-        data: {
-          pageIndex: 1,
-          pageSize: 9999,
-          conditions: [],
-        },
-      });
-      return (
-        response.data?.map((user) => ({
-          label: user.realName,
-          value: user.id,
-        })) || []
-      );
-    },
-
-  },
-  {
-    title: '联系方式',
-    dataIndex: 'phone',
-  },
-  {
-    title: '药品厂商/宠物主人证件',
-    dataIndex: 'beneficiaryCertificate',
-  },
-  {
-    title: '该次药品记录数量',
-    dataIndex: 'count',
-  },
-  {
-    title: '操作类型',
-    dataIndex: 'operatingType',
-    valueType: 'select',
-    valueEnum: {
-      0: '存入',
-      1: '取出',
-    },
-  },
-  {
-    title: '完成情况',
-    dataIndex: 'status',
+    title: '用户类型',
+    dataIndex: 'userType',
     valueType: 'select',
     valueEnum: {
       0: '完成',
@@ -180,50 +34,17 @@ const columns: ProColumns<Partial<DrugRecordData>, 'text'>[] = [
       2: '超时',
     },
   },
-  {
-    title: '药品',
-    dataIndex: 'drugId',
-    valueType: 'select',
-    fieldProps: {
-      showSearch: true,
-      filterOption: (input, option) =>
-        ((option?.label as string) ?? '')
-          .toLowerCase()
-          .includes(input.toLowerCase()),
-    },
-    request: async () => {
-      const response = await request<
-        {
-          name: string;
-          id: number;
-        }[]
-      >({
-        url: '/api/Drug/PageList',
-        method: 'POST',
-        data: {
-          pageIndex: 1,
-          pageSize: 9999,
-          conditions: [],
-        },
-      });
-      return (
-        response.data?.map((user) => ({
-          label: user.name,
-          value: user.id,
-        })) || []
-      );
-    },
-  },
+
 ];
 
 const drug = () => {
   return (
     <>
-      <PoweredTable<Partial<DrugRecordData>>
+      <PoweredTable<Partial<UserRecordData>>
         debounceTime={300}
         columns={columns}
-        api={apisConfig.routes.drugRecord}
-        pageListApi={apisConfig.routes.drugRecordList}
+        api={apisConfig.routes.user}
+        pageListApi={apisConfig.routes.userList}
       // readonly
       />
     </>
