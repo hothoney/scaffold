@@ -53,6 +53,7 @@ const useAuthService = () => {
       localStorage.getItem(AuthEnum.TokenName) &&
       parseToken(localStorage.getItem(AuthEnum.TokenName))
     ) {
+      debugger;
       const { exp } = parseToken(localStorage.getItem(AuthEnum.TokenName));
       if (exp && exp * 10e3 <= Date.now()) {
         router.push('/user/login');

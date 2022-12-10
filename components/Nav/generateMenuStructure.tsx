@@ -27,7 +27,9 @@ const generatorNavStructure = (navSchema: NavSchema[]): JSX.Element[] => {
     );
 
     if (navItem?.items && Array.isArray(navItem.items)) {
-      return (
+      return hidden ? (
+        <></>
+      ) : (
         <Menu.SubMenu key={navItem.key} title={itemContent}>
           {generatorNavStructure(navItem.items)}
         </Menu.SubMenu>

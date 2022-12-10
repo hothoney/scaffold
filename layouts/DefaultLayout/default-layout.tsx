@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Layout,
@@ -11,18 +11,31 @@ import { IconExport } from '@arco-design/web-react/icon';
 import Nav from '../../components/Nav';
 import { navConfig } from '../../config';
 import useAuth from '../../hooks/useAuth';
+import { AuthEnum } from '../../hooks/useAuth/types';
+import { UserType } from '../../config/nav';
+import { parseToken } from '../../hooks/useAuth/utils';
 
 const { Row, Col } = Grid;
 
 const DefaultLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const [role, setRole] = useState();
+  useEffect(() => {
+    setRole(
+      UserType[
+        parseToken(localStorage.getItem(AuthEnum.TokenName))[
+          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' as UserType
+        ]
+      ]
+    );
+  }, []);
   const { user, signOut } = useAuth();
   return (
     <Layout style={{ height: '100vh' }}>
       <Layout.Sider breakpoint='lg' collapsible>
         <Nav
-          schema={navConfig.defaultLayoutSideNavSchema}
+          schema={navConfig.defaultLayoutSideNavSchema(role)}
           style={{ height: '100%' }}
         />
       </Layout.Sider>
