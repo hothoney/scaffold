@@ -12,12 +12,9 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <article>
-        <h1>Lorem ipsum dolor sit amet.</h1>
+        <h1>欢迎使用宠物医院寄养系统</h1>
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia,
-          provident natus. Modi placeat earum, officiis harum quidem ipsam quasi
-          sapiente beatae eum sunt ab ea vero explicabo deserunt dignissimos
-          minima.
+          
         </p>
       </article>
     </div>

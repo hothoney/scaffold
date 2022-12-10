@@ -82,6 +82,18 @@ export default {
           href: '/record/pet',
         },
       ],
+    }, 
+    {
+      key: '2',
+      title: '用户数据维护',
+      icon: <IconStorage />,
+      items: [
+        {
+          key: '3-1',
+          title: '用户',
+          href: '/user/user',
+        }
+      ],
     },
   ],
 } as NavConfig;
