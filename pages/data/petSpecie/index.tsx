@@ -1,16 +1,20 @@
 import React from 'react';
-import ProTable from '../../../components/ProTable';
+import { apisConfig } from '../../../config';
+import PoweredTable from '../../../components/PoweredTable';
 
 const columns = [
   {
+    key: 'name',
     title: '名称',
     dataIndex: 'name',
   },
   {
+    key: 'usage',
     title: '使用方式',
     dataIndex: 'usage',
   },
   {
+    key: 'description',
     title: '描述',
     dataIndex: 'description',
   },
@@ -19,30 +23,10 @@ const columns = [
 const index = () => {
   return (
     <>
-      <ProTable
+      <PoweredTable
         columns={columns}
-        request={async ({ currentPage }) => {
-          return {
-            total: 20,
-            data: [
-              {
-                name: currentPage,
-                usage: 5,
-                description: 'lorem',
-              },
-              {
-                name: currentPage,
-                usage: 5,
-                description: 'lorem',
-              },
-              {
-                name: currentPage,
-                usage: 5,
-                description: 'lorem',
-              },
-            ],
-          };
-        }}
+        api={apisConfig.routes.petSpecie}
+        pageListApi={apisConfig.routes.petSpecieList}
       />
     </>
   );

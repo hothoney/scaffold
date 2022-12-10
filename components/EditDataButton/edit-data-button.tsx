@@ -1,19 +1,12 @@
-import {
-  type FormInstance,
-  Modal,
-  TableColumnProps,
-  Form,
-  Grid,
-  Input,
-} from '@arco-design/web-react';
-import request from '../../services/request';
+import { Modal, Form, Grid, Input } from '@arco-design/web-react';
 import { IconPlus } from '@arco-design/web-react/icon';
-import useCreateData from './useCreateData';
+import useEditData from './useEditData';
 import { ProColumns } from '@ant-design/pro-components';
 import React from 'react';
-import { Button, message } from 'antd';
+import { Button } from 'antd';
 
-interface CreateDataButtonProps<T> {
+interface EditDataButtonProps<T> {
+  initialData: T;
   columns: ProColumns<T>[];
   onSubmit?: (values: T) => Promise<boolean> | boolean;
   onSuccess?: () => void;
@@ -22,19 +15,20 @@ interface CreateDataButtonProps<T> {
 
 const { Row, Col } = Grid;
 
-const CreateDataButton = <T,>({
+const EditDataButton = <T,>({
+  initialData,
   columns,
   onSubmit,
   onError,
   onSuccess,
-}: CreateDataButtonProps<T>) => {
+}: EditDataButtonProps<T>) => {
   const { isNewModalVisible, openModal, closeModal, formInstance } =
-    useCreateData();
+    useEditData();
 
   return (
     <>
       <Modal
-        title='新建数据'
+        title='编辑数据'
         visible={isNewModalVisible}
         onCancel={closeModal}
         onOk={async () => {
@@ -57,7 +51,7 @@ const CreateDataButton = <T,>({
           }
         }}
       >
-        <Form form={formInstance}>
+        <Form form={formInstance} initialValues={initialData}>
           <Row>
             {columns.map((column) => (
               <Col span={24} key={column.key}>
@@ -73,11 +67,11 @@ const CreateDataButton = <T,>({
           </Row>
         </Form>
       </Modal>
-      <Button type='primary' prefix='+' onClick={openModal}>
-        新建
+      <Button type='link' onClick={openModal} size='small'>
+        编辑
       </Button>
     </>
   );
 };
 
-export default CreateDataButton;
+export default EditDataButton;

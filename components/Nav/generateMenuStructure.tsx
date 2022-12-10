@@ -19,10 +19,10 @@ export interface NavSchema {
 const generatorNavStructure = (navSchema: NavSchema[]): JSX.Element[] => {
   return navSchema.map(({ title, icon, ...navItem }) => {
     const itemContent = (
-      <>
+      <span key='title'>
         {icon}
         {title}
-      </>
+      </span>
     );
 
     if (navItem?.items && Array.isArray(navItem.items)) {

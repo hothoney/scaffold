@@ -72,7 +72,7 @@ const index = () => {
   } = useRequest(postRegisterValue, {
     manual: true,
     onSuccess(data, params) {
-      if (data.data.success) {
+      if (data.success) {
         Message.success('注册成功');
         router.push('/user/login');
       } else {

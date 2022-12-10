@@ -83,8 +83,8 @@ const drug = () => {
             });
             if (result.data) {
               return {
-                total: result.data.totalCount || 0,
-                data: result.data.data || [],
+                total: result.totalCount || 0,
+                data: result.data || [],
               };
             } else {
               return {
@@ -106,7 +106,7 @@ const drug = () => {
               url: apisConfig.routes.drugRecord,
               data,
             });
-            if (result.data.success) {
+            if (result.success) {
               return true;
             } else {
               return false;

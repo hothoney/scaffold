@@ -46,7 +46,7 @@ const ProTable = <T,>({ request, columns, addRequest }: ProTableProps<T>) => {
         columns={columns}
         onSubmit={(value) => setFormParams(value)}
       />
-      <CreateDataButton
+      {/* <CreateDataButton
         columns={columns}
         onSubmit={async (values) => {
           if (!(addRequest && typeof addRequest === 'function')) {
@@ -61,7 +61,7 @@ const ProTable = <T,>({ request, columns, addRequest }: ProTableProps<T>) => {
         }}
         onSuccess={() => Message.success('创建成功')}
         onError={() => Message.error('创建失败')}
-      />
+      /> */}
       <Divider />
       <Table
         loading={loading}

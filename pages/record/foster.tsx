@@ -62,44 +62,7 @@ const drug = () => {
           try {
             return {
               total: 4,
-              data: [
-                {
-                  name: 'Admin',
-                  phoneNumber: '123456',
-                  certificate: '证书一',
-                  petId: 'number',
-                  fosterDateTime: '2022-10-01',
-                  receiveImplementer: 'Admin',
-                  transferImplementer: 'Admin',
-                },
-                {
-                  name: 'Admin',
-                  phoneNumber: '123456',
-                  certificate: '证书一',
-                  petId: 'number',
-                  fosterDateTime: '2022-10-01',
-                  receiveImplementer: 'Admin',
-                  transferImplementer: 'Admin',
-                },
-                {
-                  name: 'Admin',
-                  phoneNumber: '123456',
-                  certificate: '证书一',
-                  petId: 'number',
-                  fosterDateTime: '2022-10-01',
-                  receiveImplementer: 'Admin',
-                  transferImplementer: 'Admin',
-                },
-                {
-                  name: 'Admin',
-                  phoneNumber: '123456',
-                  certificate: '证书一',
-                  petId: 'number',
-                  fosterDateTime: '2022-10-01',
-                  receiveImplementer: 'Admin',
-                  transferImplementer: 'Admin',
-                },
-              ],
+              data: [],
             };
           } catch (error) {
             return {
@@ -115,7 +78,7 @@ const drug = () => {
               url: apisConfig.routes.drugRecord,
               data,
             });
-            if (result.data.success) {
+            if (result.success) {
               return true;
             } else {
               return false;
