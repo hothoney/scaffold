@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { apisConfig } from '../../config';
 import { AuthEnum } from '../../hooks/useAuth/types';
 
@@ -25,8 +25,11 @@ instance.interceptors.request.use((config) => {
   };
 });
 
-const request = <T>(config: AxiosRequestConfig) => {
-  return instance.request<BaseResponseType<T>>(config);
+const request = async <T>(
+  config: AxiosRequestConfig
+): Promise<BaseResponseType<T>> => {
+  const result = (await instance.request<BaseResponseType<T>>(config)).data;
+  return result;
 };
 
 export default request;

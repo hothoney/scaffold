@@ -26,12 +26,12 @@ const useAuthService = () => {
   const { run: login, loading: isLoginLoading } = useRequest(loginRequest, {
     manual: true,
     onSuccess(data, params) {
-      if (data.data.success) {
+      if (data.success) {
         Message.success('登录成功');
-        setUser(parseToken(data.data.data));
+        setUser(parseToken(data.data as string));
         console.log({ user });
         setIsAuthorized(true);
-        localStorage.setItem(AuthEnum.TokenName, data.data.data);
+        localStorage.setItem(AuthEnum.TokenName, data.data as string);
         router.push('/');
       } else {
         Message.error('登录失败');
