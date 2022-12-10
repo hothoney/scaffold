@@ -1,5 +1,5 @@
 export default {
-  baseUrl: 'http://localhost:5063',
+  baseUrl: 'https://3347-240e-3b3-621-630-3d25-ded3-f0ec-2320.jp.ngrok.io',
   routes: {
     register: '/api/User/Register', // 注册接口
     login: '/api/User/Login', // 登录接口

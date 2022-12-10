@@ -29,15 +29,16 @@ const columns: ProColumns<Partial<UserRecordData>, 'text'>[] = [
     dataIndex: 'userType',
     valueType: 'select',
     valueEnum: {
-      0: '完成',
-      1: '失败',
-      2: '超时',
+      0: '工作人员',
+      1: '药品供应商',
+      2: '客户',
+      99:'超管'
     },
   },
 
 ];
 
-const drug = () => {
+const user = () => {
   return (
     <>
       <PoweredTable<Partial<UserRecordData>>
@@ -51,4 +52,4 @@ const drug = () => {
   );
 };
 
-export default drug;
+export default user;
