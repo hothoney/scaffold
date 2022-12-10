@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.8.0",
     "@ant-design/pro-components": "^2.3.46",
     "@arco-design/web-react": "^2.40.0",
     "ahooks": "^3.7.1",
