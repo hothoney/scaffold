@@ -8,6 +8,7 @@ export interface NavSchema {
   href?: string;
   disabled?: boolean;
   items?: NavSchema[];
+  hidden?: boolean;
 }
 
 /**
@@ -17,7 +18,7 @@ export interface NavSchema {
  * @return {*}  {JSX.Element[]}
  */
 const generatorNavStructure = (navSchema: NavSchema[]): JSX.Element[] => {
-  return navSchema.map(({ title, icon, ...navItem }) => {
+  return navSchema.map(({ title, icon, hidden, ...navItem }) => {
     const itemContent = (
       <span key='title'>
         {icon}
@@ -32,7 +33,9 @@ const generatorNavStructure = (navSchema: NavSchema[]): JSX.Element[] => {
         </Menu.SubMenu>
       );
     } else {
-      return (
+      return hidden ? (
+        <></>
+      ) : (
         <Menu.Item {...navItem}>
           {navItem.href ? (
             <Link href={navItem.href}>

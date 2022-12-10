@@ -7,6 +7,7 @@ import request from '../../services/request';
 import { AuthEnum, type LoginData } from './types';
 import { parseToken } from './utils';
 import { useRouter } from 'next/router';
+import { message } from 'antd';
 
 const loginRequest = (data: LoginData) => {
   return request<string>({
@@ -69,8 +70,10 @@ const useAuthService = () => {
     login(data);
   };
 
-  const signOut = () => {
-    localStorage.removeItem(AuthEnum.TokenName);
+  const signOut = async () => {
+    await localStorage.removeItem(AuthEnum.TokenName);
+    message.success('登出成功！');
+    router.push('/user/login');
   };
 
   return {
